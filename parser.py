@@ -2,11 +2,9 @@
 
 import csv
 import sys
+import pandas as pd
 
-if __name__ == '__main__':
-
-    fileName = sys.argv[1]
-
+def decode(fileName):
     if fileName.endswith(".csv"):
         fileName = fileName.replace(".csv", "")
 
@@ -14,5 +12,14 @@ if __name__ == '__main__':
         writer = csv.writer(wf)
         with open(f"{fileName}.csv", "r", encoding="cp949") as f:
             reader = csv.reader(f)
+            for i in range(15):
+                next(reader)
+
             for row in reader:
                 writer.writerow(row)
+    
+    return fileName + "_utf.csv"
+
+if __name__ == '__main__':
+    fileName = decode(sys.argv[1])
+    
