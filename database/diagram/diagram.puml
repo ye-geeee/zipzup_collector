@@ -1,0 +1,11 @@
+@startuml entity diagram
+
+entity districts {
+    index: bigint <<generated>>
+    dist_origin: text
+    dist_join: text
+    sub_dist1: text
+    sub_dist2: text
+    sub_dist3: textd
+    sub_dist4: text
+}
