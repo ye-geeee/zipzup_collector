@@ -9,7 +9,7 @@ from sqlalchemy.ext.declarative import declarative_base
 Base = declarative_base()
 
 
-class District(Base):
+class Districts(Base):
     __tablename__ = 'districts'
 
     id = Column(Integer, primary_key=True)
@@ -35,12 +35,11 @@ class District(Base):
 def generateDistricts(rawInfo: pd.DataFrame):
     distDf = rawInfo.drop_duplicates(subset=['dist_origin'])
     districts = []
-    print("Here I am")
-    print(distDf)
+    print("There are " + str(distDf.shape.index + " districts info to update")
 
     for dist in distDf['dist_origin']:
-        specificDistrictInfo = getDistricts(dist)
-        districts.append(District(
+        specificDistrictInfo=getDistricts(dist)
+        districts.append(Districts(
             dist,
             ''.join(specificDistrictInfo),
             specificDistrictInfo[0],
@@ -53,45 +52,10 @@ def generateDistricts(rawInfo: pd.DataFrame):
 
 
 def getDistricts(dist: str):
-    dists = dist.split(" ")
+    dists=dist.split(" ")
 
     if len(dists[1]) > 4:
         dists.insert(2, dists[1][2:])
-        dists[1] = dists[1][:2] + '시'
+        dists[1]=dists[1][:2] + '시'
 
     return dists
-
-
-# class DistrictConverter:
-#     districts: list
-
-#     def __init__(self):
-#         self.districts = []
-
-#     def generateData(self, rawInfo: pd.DataFrame):
-#         distDf = rawInfo.drop_duplicates(subset=['dist_origin'])
-#         self.districts = []
-#         print("Here I am")
-#         print(distDf)
-
-#         for dist in distDf['dist_origin']:
-#             specificDistrictInfo = self.getDistricts(dist)
-#             self.districts.append(District(
-#                 dist,
-#                 ''.join(specificDistrictInfo),
-#                 specificDistrictInfo[0],
-#                 specificDistrictInfo[1],
-#                 specificDistrictInfo[2],
-#                 specificDistrictInfo[3] if len(
-#                     specificDistrictInfo) > 3 else None
-#             ))
-#         return self.districts
-
-#     def getDistricts(self, dist: str):
-#         dists = dist.split(" ")
-
-#         if len(dists[1]) > 4:
-#             dists.insert(2, dists[1][2:])
-#             dists[1] = dists[1][:2] + '시'
-
-#         return dists

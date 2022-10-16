@@ -7,7 +7,7 @@ from nis import match
 import sys
 from fileReader import readCsv
 from sqlalchemy.orm import sessionmaker
-from districts import District, generateDistricts
+from districts import Districts, generateDistricts
 
 engine = create_engine(
     'mysql+pymysql://[db유저이름]:[db password]@[host address]/[db name]')
